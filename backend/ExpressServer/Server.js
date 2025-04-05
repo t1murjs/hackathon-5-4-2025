@@ -16,6 +16,13 @@ const {
     LoginUser
 } = require('../Services/UserService')
 
+const MongoStore = require('connect-mongodb-session')(session)
+
+const store = new MongoStore({
+    uri: process.env.MONGOOSE_CONNECTION_URI,
+    collection: 'userSessions'
+  });
+
 const {loadEnvFile} = require('process')
 loadEnvFile('../.env')
 
@@ -34,7 +41,8 @@ app.use(session({
     },
     saveUninitialized: false,
     path: '/',
-    secret: process.env.SESSION_SECRET
+    secret: process.env.SESSION_SECRET,
+    store
 }))
 
 app.post('/course/add', async (req, res) => {
