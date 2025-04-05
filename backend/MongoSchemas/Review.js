@@ -15,7 +15,7 @@ const ReviewSchema = new mongoose.Schema({
         type: String, //maximum length is 180 words
         required: true
     },
-    Rating:{
+    Rating:{ // Change to upvotes and downvotes
         type: Number
     },
     Date:{

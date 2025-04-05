@@ -11,7 +11,12 @@ const UserSchema = new mongoose.Schema({
     },
     role:{ // Student, Instructor, Admin
         type: String, 
+        enum: ["Student", "Instructor"],
         required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     userRatings: {
         type: [mongoose.Types.ObjectId],
