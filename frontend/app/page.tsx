@@ -1,51 +1,36 @@
-"use client"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import Link from "next/link"
 
-import { useState } from "react"
-import { SearchForm } from "../components/SearchForm"
-import { SearchResults } from "../components/SearchResult"
-import { Header } from "../components/Header"
-import type { PodcastEpisode } from "./types"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { AlertCircle } from "lucide-react"
-
-export default function Home() {
-  const [results, setResults] = useState<PodcastEpisode[]>([])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  const handleSearch = async (query: string) => {
-    setIsLoading(true)
-    setError(null)
-    try {
-      const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`)
-      if (!response.ok) {
-        throw new Error("Network response was not ok")
-      }
-      const data = await response.json()
-      setResults(data)
-    } catch (error) {
-      console.error("Error fetching search results:", error)
-      setError("An error occurred while fetching results. Please try again.")
-      setResults([])
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
+export default function SignInPage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
-      <main className="container mx-auto px-4 py-8">
-        <SearchForm onSearch={handleSearch} />
-        {error && (
-          <Alert variant="destructive" className="mb-6">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-        <SearchResults results={results} isLoading={isLoading} />
-      </main>
+    <div className="flex h-screen w-full items-center justify-center bg-slate-50">
+      <Card className="w-full max-w-md">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl font-bold">Sign in</CardTitle>
+          <CardDescription>
+            Enter your credentials to access the Tampere University Course Roasting System
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" placeholder="your.email@tuni.fi" type="email" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="password">Password</Label>
+            <Input id="password" type="password" />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Link href="/home" className="w-full">
+            <Button className="w-full">Sign In</Button>
+          </Link>
+        </CardFooter>
+      </Card>
     </div>
   )
 }
+
