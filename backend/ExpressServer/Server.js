@@ -50,33 +50,29 @@ app.post('/course/add', async (req, res) => {
 app.delete('/course/remove', async (req, res) => {
     const { name, code } = req.body
     try {
-        const course = await RemoveCourse(name, code)
+        const course = await RemoveCourse(name, code,req)
         res.status(200).json(course)
     } catch (err) {
         res.status(404).json({ error: err.message })
     }
 })
 
-app.post('course/:id/upvote', async (req, res) => {
+app.post('/course/:courseId/upvote', async (req, res) => {
+    const userId = req.session.user.ID
+    const { courseId } = req.params;
+
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
     try {
-        const updated = await UpvoteCourse(req.params.id)
-        res.status(200).json(updated)
+        const result = await UpvoteCourse(courseId, userId);
+        res.status(200).json(result);
     } catch (err) {
-        res.status(404).json({ error: err.message })
+        res.status(500).json({ error: err.message });
     }
-})
+});
 
-app.post('course/:id/downvote', async (req, res) => {
-    try 
-    {
-        const updated = await DownvoteCourse(req.params.id)
-        res.status(200).json(updated)
-    } catch (err) {
-        res.status(404).json({ error: err.message })
-    }
-})
 
-app.post('course/:id/reviews/add', async (req, res) => {
+app.post('/course/:id/reviews/add', async (req, res) => {
     const courseId = req.params.id
     const { reviewerId, reviewText, rating } = req.body
 
@@ -89,7 +85,7 @@ app.post('course/:id/reviews/add', async (req, res) => {
     }
 })
 
-app.delete('course/reviews/:reviewId/remove', async (req, res) => {
+app.delete('/course/reviews/:reviewId/remove', async (req, res) => {
     try {
         const deleted = await RemoveCourseReview(req.params.reviewId)
         res.status(200).json(deleted)
@@ -98,22 +94,12 @@ app.delete('course/reviews/:reviewId/remove', async (req, res) => {
     }
 })
 
-/*
-    req.session.user = {
-        id: user._id,
-        username: user.username,
-        role: user.role
-    };
-*/
 app.post('/user/register', async (req, res) => {
 
     const { username, password, role } = req.body;
 
     try {
         const user = await RegisterUser(username, password, role);
-        req.session.userID = {
-            userID: user.userID
-        }
         res.status(201).json(user);
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -124,9 +110,10 @@ app.post('/user/login', async (req, res) => {
 
     try {
         const result = await LoginUser(req, username, password);
-        req.session.userID = {
-            userID: result.userID
+        req.session.user = {
+            ID: result.userID
         }
+        req.session.save(()=>{})
         res.status(200).json(result);
     } catch (err) {
         res.status(401).json({ error: err.message });

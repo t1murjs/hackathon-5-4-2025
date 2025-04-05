@@ -13,11 +13,8 @@ const CourseSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    rating: {
-        type: Number,
-        default: 1,
-        minimum: 1,
-        maximum: 5
+    upvotes: {
+        type: [mongoose.Types.ObjectId]
     },
     reviews:{
         type: [mongoose.Types.ObjectId],
