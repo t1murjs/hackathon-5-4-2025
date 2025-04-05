@@ -20,6 +20,12 @@ const CourseSchema = new mongoose.Schema({
         type: [mongoose.Types.ObjectId],
         ref: 'Review'
     },
+    credits: {
+        type: Number,
+        default: 1,
+        min: 1,
+        max: 30
+    },
     teachingMode:{
         type: String,
         enum: ['Online', 'Flipped', 'In-person'],
