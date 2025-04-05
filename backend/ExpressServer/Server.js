@@ -170,6 +170,24 @@ app.get('/courses/:id', async (req, res) => {
     }
 });
 
+app.get('/user/isRegistered', (req,res) => {
+    try
+    {
+        if(req.session.user)
+        {
+            res.status(200).send({message: 'This user is logged in', isRegistered: true})
+        }
+        else
+        {
+            res.status(401).send({message: 'This user is not logged in', isRegistered: false})
+        }
+    }
+    catch(err)
+    {
+        res.status(500).send({message: 'Something went wrong', err})
+    }
+})
+
 app.listen((process.env.NODE_SERVER_PORT), async() => {
     await connectToMongoDatabase()
     console.log('server is listening on port:', process.env.NODE_SERVER_PORT)
