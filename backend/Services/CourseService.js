@@ -49,7 +49,6 @@ const UpvoteCourse = async (courseId, userId) => {
     };
 };
 
-
 const AddCourseReview = async (reviewerId, courseId, reviewText, rating) => {
     const review = await ReviewModel({
         Reviewer: reviewerId,
@@ -112,6 +111,28 @@ const UpvoteReview = async (reviewId, userId) => {
     };
 };
 
+const GetCourseById = async(courseID) => {
+    try{
+        const AllPosts = await CourseModel.findById({_id: courseID}).populate('reviews')
+        return {message: 'Fetched posts', posts: AllPosts}
+    }
+    catch(err)
+    {
+        return {message: 'An error occured', err: err}
+    }
+}
+
+
+const GetAllCourses = async() => {
+    try{
+        const AllPosts = await CourseModel.find()
+        return {message: 'Fetched posts', posts: AllPosts}
+    }
+    catch(err)
+    {
+        return {message: 'An error occured', err: err}
+    }
+}
 
 
 module.exports = {
@@ -120,5 +141,7 @@ module.exports = {
     UpvoteCourse,
     AddCourseReview,
     RemoveCourseReview,
-    UpvoteReview
+    UpvoteReview,
+    GetAllCourses,
+    GetCourseById
 }

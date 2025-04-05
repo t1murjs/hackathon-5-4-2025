@@ -8,7 +8,9 @@ const {
     UpvoteCourse,
     AddCourseReview,
     RemoveCourseReview,
-    UpvoteReview
+    UpvoteReview,
+    GetAllCourses, 
+    GetCourseById
 } = require('../Services/CourseService')
 
 const {
@@ -149,6 +151,24 @@ app.post('/user/logout', async (req, res) => {
    res.status(200).json({message: 'Logout successful'})
 });
 
+app.get('/courses', async (req, res) => {
+    try {
+        const result = await GetAllCourses();
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
+});
+
+app.get('/courses/:id', async (req, res) => {
+    try {
+        const courseID = req.params.id;
+        const result = await GetCourseById(courseID);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ message: 'Server error', error: err.message });
+    }
+});
 
 app.listen((process.env.NODE_SERVER_PORT), async() => {
     await connectToMongoDatabase()
