@@ -15,10 +15,10 @@ const CourseSchema = new mongoose.Schema({
         minimum: 1,
         maximum: 5
     },
-    instructor:{ // Student, Instructor, Admin
-        type: String, 
-        required: true,
-        ref: 'User'
+    role:{ // Student, Instructor, Admin
+        type: String,
+        ref: 'User',
+        required: true
     },
     reviews:{
         type: mongoose.Types.ObjectId,
