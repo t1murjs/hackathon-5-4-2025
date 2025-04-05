@@ -19,9 +19,14 @@ const CourseSchema = new mongoose.Schema({
         type: String, 
         required: true,
         ref: 'User'
+    },
+    reviews:{
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: 'Review'
     }
 })
 
-const UserModel = mongoose.model('User', UserSchema)
+const CourseModel = mongoose.model('Course', CourseSchema)
 
-module.exports = {UserModel}
+module.exports = {CourseModel}
