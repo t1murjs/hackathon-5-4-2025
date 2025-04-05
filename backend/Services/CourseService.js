@@ -80,13 +80,36 @@ const RemoveCourseReview = async (reviewId) => {
     return review
 }
 
-const UpvoteReview = async (reviewId) => {
-    return { message: 'Upvote not implemented yet' }
-}
+const UpvoteReview = async (reviewId, userId) => {
+    const objectId = new mongoose.Types.ObjectId(userId);
 
-const DownvoteReview = async (reviewId) => {
-    return { message: 'Downvote not implemented yet' }
-}
+    const updatedReview = await ReviewModel.findOneAndUpdate(
+        { _id: reviewId },
+        [
+            {
+                $set: {
+                    upvotes: {
+                        $cond: {
+                            if: { $in: [objectId, "$upvotes"] },
+                            then: { $setDifference: ["$upvotes", [objectId]] },
+                            else: { $setUnion: ["$upvotes", [objectId]] }
+                        }
+                    }
+                }
+            }
+        ],
+        { new: true }
+    );
+
+    return {
+        message: updatedReview.upvotes.includes(objectId)
+            ? "Review upvoted"
+            : "Upvote removed",
+        upvotes: updatedReview.upvotes.length
+    };
+};
+
+
 
 module.exports = {
     AddCourse,
@@ -94,6 +117,5 @@ module.exports = {
     UpvoteCourse,
     AddCourseReview,
     RemoveCourseReview,
-    UpvoteReview,
-    DownvoteReview
+    UpvoteReview
 }

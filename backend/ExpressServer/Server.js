@@ -6,9 +6,9 @@ const {
     AddCourse,
     RemoveCourse,
     UpvoteCourse,
-    DownvoteCourse,
     AddCourseReview,
-    RemoveCourseReview
+    RemoveCourseReview,
+    UpvoteReview
 } = require('../Services/CourseService')
 
 const {
@@ -74,11 +74,10 @@ app.post('/course/:courseId/upvote', async (req, res) => {
 
 app.post('/course/:id/reviews/add', async (req, res) => {
     const courseId = req.params.id
-    const { reviewerId, reviewText, rating } = req.body
-
+    const { reviewerId, reviewText } = req.body
     try 
     {
-        const review = await AddCourseReview(reviewerId, courseId, reviewText, rating)
+        const review = await AddCourseReview(reviewerId, courseId, reviewText)
         res.status(201).json(review)
     } catch (err) {
         res.status(400).json({ error: err.message })
@@ -93,6 +92,20 @@ app.delete('/course/reviews/:reviewId/remove', async (req, res) => {
         res.status(404).json({ error: err.message })
     }
 })
+
+app.post('/review/upvote/:reviewId', async (req, res) => {
+    const userId = req.session?.user.ID;
+    const { reviewId } = req.params;
+
+    if (!userId) return res.status(401).json({ error: 'Unauthorized' });
+
+    try {
+        const result = await UpvoteReview(reviewId, userId);
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
 
 app.post('/user/register', async (req, res) => {
 
