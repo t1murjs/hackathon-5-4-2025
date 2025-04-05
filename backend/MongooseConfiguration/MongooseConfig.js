@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const dotenv = require('dotenv');
-dotenv.config()
-
+const {loadEnvFile} = require('process')
+loadEnvFile('../.env')
 
 const connectToMongoDatabase = async () => 
 {
