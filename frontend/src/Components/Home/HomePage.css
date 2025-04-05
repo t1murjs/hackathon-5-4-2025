@@ -1,0 +1,28 @@
+.home-page {
+  font-family: Arial, sans-serif;
+}
+
+.search-section {
+  margin-top: -30px; /* To pull the search bar slightly higher */
+}
+
+.search-input {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.course-card {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.course-card .btn-block {
+  margin-top: 15px;
+}
+
+.footer {
+  font-size: 0.9rem;
+  color: #777;
+  background-color: #f8f9fa;
+}
