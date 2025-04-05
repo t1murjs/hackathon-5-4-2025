@@ -43,10 +43,10 @@ export default function NavigationBar() {
             <NavLink href='/'> Home </NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href='log in'> Log in</NavLink>
+            <NavLink href='/login'> Log in</NavLink>
         </NavItem>
         <NavItem>
-            <NavLink href='sign up'> Sign up</NavLink>
+            <NavLink href='/register'> Sign up</NavLink>
         </NavItem>
       </Nav>
     </Navbar>

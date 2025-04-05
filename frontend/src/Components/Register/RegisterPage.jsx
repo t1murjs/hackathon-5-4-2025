@@ -1,7 +1,10 @@
 import React from 'react'
+import { Navbar } from 'react-bootstrap'
 
-export default function RegisterPage() {
+export default function () {
   return (
-    <div>RegisterPage</div>
+    <>
+        <Navbar/>
+    </>
   )
 }
