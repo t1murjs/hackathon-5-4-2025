@@ -29,7 +29,21 @@ const LoginUser = async (req, username, password) => {
     return { message: 'Login successful', userID: user._id };
 };
 
+const GetUserById = async (userID) => {
+    try{
+        const user = await UserModel.findById({_id: userID});
+    
+
+        return { message: 'User found', user };
+    }
+    catch(err)
+    {
+        return {message: 'User not found'}
+    }
+   
+};
 module.exports = {
     RegisterUser,
-    LoginUser
+    LoginUser,
+    GetUserById
 };

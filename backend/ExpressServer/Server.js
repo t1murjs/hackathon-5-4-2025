@@ -13,7 +13,8 @@ const {
 
 const {
     RegisterUser,
-    LoginUser
+    LoginUser,
+    GetUserById
 } = require('../Services/UserService')
 
 const MongoStore = require('connect-mongodb-session')(session)
@@ -94,7 +95,9 @@ app.post('/course/:id/reviews/add', async (req, res) => {
 
 app.delete('/course/reviews/:reviewId/remove', async (req, res) => {
     try {
-        const deleted = await RemoveCourseReview(req.params.reviewId)
+        const currentUserID = req.session.user.ID
+        const currentUser = await GetUserById(currentUserID)
+        const deleted = await RemoveCourseReview(req.params.reviewId, currentUser)
         res.status(200).json(deleted)
     } catch (err) {
         res.status(404).json({ error: err.message })

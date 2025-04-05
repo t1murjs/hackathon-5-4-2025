@@ -68,14 +68,17 @@ const AddCourseReview = async (reviewerId, courseId, reviewText, rating) => {
     return savedReview
 }
 
-const RemoveCourseReview = async (reviewId) => {
+const RemoveCourseReview = async (reviewId, currentUser) => {
     const review = await ReviewModel.findByIdAndDelete(reviewId)
     if (!review) throw new Error('Review not found')
 
     // Remove from course
-    await CourseModel.findByIdAndUpdate(review.ReviewedCourse, {
-        $pull: { reviews: review._id }
-    })
+    if(review.Reviewer == currentUser._id || currentUser.isAdmin)
+        {
+        await CourseModel.findByIdAndUpdate(review.ReviewedCourse, {
+            $pull: { reviews: review._id }
+        })
+    }
 
     return review
 }
