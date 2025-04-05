@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const session = require('express-session')
+const {connectToMongoDatabase} = require('../MongooseConfiguration/MongooseConfig.js')
 
 const {loadEnvFile} = require('process')
 loadEnvFile('../.env')
@@ -21,6 +22,7 @@ app.use(session({
     path: '/',
     secret: process.env.SESSION_SECRET
 }))
-app.listen((process.env.NODE_SERVER_PORT), () => {
+app.listen((process.env.NODE_SERVER_PORT), async() => {
+    await connectToMongoDatabase()
     console.log('server is listening on port:', process.env.NODE_SERVER_PORT)
 })
