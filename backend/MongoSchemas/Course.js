@@ -15,14 +15,8 @@ const CourseSchema = new mongoose.Schema({
         minimum: 1,
         maximum: 5
     },
-    role:{ // Student, Instructor, Admin
-        type: String,
-        ref: 'User',
-        required: true
-    },
     reviews:{
-        type: mongoose.Types.ObjectId,
-        required: true,
+        type: [mongoose.Types.ObjectId],
         ref: 'Review'
     },
     teachingMode:{
