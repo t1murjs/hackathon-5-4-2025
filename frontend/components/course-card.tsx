@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Star } from "lucide-react"
 import Link from "next/link"
+import { getCourseRoute } from "@/lib/routes"
 
 interface CourseCardProps {
   course: {
@@ -14,7 +15,7 @@ interface CourseCardProps {
 
 export function CourseCard({ course }: CourseCardProps) {
   return (
-    <Link href={`/courses/${course.id}`}>
+    <Link href={getCourseRoute(course.id)}>
       <Card className="h-full transition-all hover:shadow-md cursor-pointer">
         <CardHeader>
           <CardTitle>{course.name}</CardTitle>

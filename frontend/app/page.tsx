@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { getHomeRoute } from "@/lib/routes"
 
 export default function SignInPage() {
   return (
@@ -25,7 +26,7 @@ export default function SignInPage() {
           </div>
         </CardContent>
         <CardFooter>
-          <Link href="/home" className="w-full">
+          <Link href={getHomeRoute()}>
             <Button className="w-full">Sign In</Button>
           </Link>
         </CardFooter>

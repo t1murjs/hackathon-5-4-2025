@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Star } from "lucide-react"
 import Link from "next/link"
 import { ReviewCard } from "@/components/review-card"
+import { getHomeRoute } from "@/lib/routes"
 
 // Mock data for the prototype
 const coursesData = {
@@ -166,7 +167,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
       <div className="flex h-screen items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold">Course not found</h1>
-          <Link href="/home">
+          <Link href={getHomeRoute()}>
             <Button className="mt-4">Back to Home</Button>
           </Link>
         </div>
@@ -197,7 +198,7 @@ export default function CoursePage({ params }: { params: { id: string } }) {
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold text-slate-900">Course Roasting System</h1>
             <div className="flex items-center gap-4">
-              <Link href="/home">
+              <Link href={getHomeRoute()}>
                 <Button variant="outline" size="sm">
                   Back to Home
                 </Button>

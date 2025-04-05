@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { CourseCard } from "@/components/course-card"
 import Link from "next/link"
+import { getSignInRoute } from "@/lib/routes"
 
 // Mock data for the prototype
 const courses = [
@@ -58,7 +59,7 @@ export default function HomePage() {
             <h1 className="text-2xl font-bold text-slate-900">Course Roasting System</h1>
             <div className="flex items-center gap-4">
               <span className="text-sm text-slate-600">student@tuni.fi</span>
-              <Link href="/">
+              <Link href={getSignInRoute()}>
                 <Button variant="outline" size="sm">
                   Sign Out
                 </Button>
