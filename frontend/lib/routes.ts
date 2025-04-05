@@ -26,3 +26,5 @@ export function getCourseRoute(id: string): string {
   return ROUTES.COURSE(id)
 }
 
+// random cehck
+
