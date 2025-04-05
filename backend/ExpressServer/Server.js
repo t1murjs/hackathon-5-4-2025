@@ -141,6 +141,11 @@ app.post('/user/login', async (req, res) => {
     }
 });
 
+app.post('/user/logout', async (req, res) => {
+   req.session.destroy()
+   res.status(200).json({message: 'Logout successful'})
+});
+
 
 app.listen((process.env.NODE_SERVER_PORT), async() => {
     await connectToMongoDatabase()
