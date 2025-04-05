@@ -1,0 +1,8 @@
+{
+    "courses":[
+        {"name":"Programming 1: Introduction to Programming", "code":"COMP.CS.100", "lecturer":["Ari Suntioinen"], "description":""},
+        {"name":"Programming 1: Introduction to Programming", "code":"COMP.CS.100", "lecturer":["Ari Suntioinen"], "description":""},
+        {"name":"Programming 1: Introduction to Programming", "code":"COMP.CS.100", "lecturer":["Ari Suntioinen"], "description":""},
+        {"name":"Programming 1: Introduction to Programming", "code":"COMP.CS.100", "lecturer":["Ari Suntioinen"], "description":""}
+    ]
+}
