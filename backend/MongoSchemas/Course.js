@@ -24,6 +24,12 @@ const CourseSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'Review'
+    },
+    teachingMode:{
+        type: String,
+        enum: ['Online', 'Flipped', 'In-person'],
+        required: true,
+        default: 'Online'
     }
 })
 
