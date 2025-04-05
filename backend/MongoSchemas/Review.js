@@ -14,6 +14,13 @@ const ReviewSchema = new mongoose.Schema({
     Review:{
         type: String, //maximum length is 180 words
         required: true
+    },
+    Rating:{
+        type: Number
+    },
+    Date:{
+        type: Date,
+        default: Date.now()
     }
 })
 
