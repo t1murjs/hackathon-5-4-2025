@@ -12,6 +12,10 @@ const UserSchema = new mongoose.Schema({
     role:{ // Student, Instructor, Admin
         type: String, 
         required: true
+    },
+    userRatings: {
+        type: [mongoose.Types.ObjectId],
+        ref: 'Course'
     }
 })
 
